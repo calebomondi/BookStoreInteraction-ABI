@@ -3,7 +3,7 @@ import bookStore from './abi/BookStore.json' with { type: 'json' };
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-const contractAddress = '0x0C318178328C2b6E885f9ADb2C105bb66C59AbdE'
+const contractAddress = '0x6589252bf0565D8C34a6E378606B8Af5f40927d8'
 
 const createContractInstanceOnEthereum = (contractAddress, contractAbi) => {
     const alchemyApiKey = process.env.ALCHEMY_API_KEY_SEPOLIA;
@@ -47,7 +47,7 @@ const addBookToContract = async(bookId, title, author, price, stock) => {
     }
 }
 
-const _bookId = 1
+const _bookId = 2
 const getBook = async () => {
     try{
         const books = await contractOnETH.getBooks(_bookId)
@@ -71,9 +71,24 @@ const buyBookFromContract = async (bookId,quantity) => {
     }
 }
 
-(async () => {
+const book = {
+    bookId : 4,
+    title : "Wei To Gwei",
+    author : "Satochi Kasaki",
+    price: 1,
+    stock: 100
+}
+
+const buyABook = {
+    bookId : 1,
+    quantity : 5
+}
+
+const TestContractFunctions = async () => {
     //await createEthereumAccount()
-    //await addBookToContract(115, "Avengers Assemble II", "Stan Lee", 150, 1)
+    //await addBookToContract(book.bookId, book.title, book.author, book.price, book.stock)
     //await getBook()
-    await buyBookFromContract(1,5)
-})()
+    await buyBookFromContract(buyABook.bookId,buyABook.quantity)
+}
+
+TestContractFunctions()
